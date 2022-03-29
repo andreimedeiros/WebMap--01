@@ -5,203 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>-Mapa João Pessoa-</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css">
-
-    <style>
-        html,
-        body,
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-
-
     <script src="https://js.arcgis.com/4.23"></script>
+    <script src="js/main.js"></script>
 
-    <script>
-
-        require([
-            "esri/Map",
-            "esri/views/MapView",
-            "esri/widgets/BasemapGallery",
-            "esri/widgets/Expand",
-            "esri/widgets/BasemapToggle",
-            "esri/Graphic",
-            "esri/layers/GraphicsLayer"], function (Map, MapView, BasemapGallery, Expand, BasemapToggle, Graphic, GraphicsLayer) {
-
-
-
-                /* Referências para a property 'basemap: https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap */
-
-                const map = new Map({
-                    basemap: "satellite"
-                });
-
-                const view = new MapView({
-                    container: "viewDiv",
-                    map: map,
-                    center: [-34.86, -7.12],
-                    zoom: 14.5
-                });
-
-                const basemapToggle = new BasemapToggle({
-                    view: view,
-                    nextBasemap: "osm"
-                });
-
-                const basemapGallery = new BasemapGallery({
-                    view: view,
-                    container: document.createElement("div")
-                });
-
-
-                const bgExpand = new Expand({
-                    view: view,
-                    content: basemapGallery
-                });
-
-                const graphicsLayer = new GraphicsLayer();
-                map.add(graphicsLayer);
-
-
-                
-                /*  CRIAR UM PONTO NO MAPA  */
-
-
-                const pontoTecgeo = {
-                    type: "point",
-                    longitude: -34.865700,
-                    latitude: -7.121404,
-
-
-                };
-                const pontoAparencia = {
-                    type: "simple-marker",
-                    color: [135, 206, 250],  // lightskyblue
-                    outline: {
-                        color: [255, 255, 255], // branco
-                        width: 2
-                    }
-                };
-
-                const popupTemplatePONTO = {
-                    title: "TecGeo | Tecnologia em Geoprocessamento",
-                    content: "Há mais de 15 anos no mercado, a Tecgeo é uma empresa que oferece serviços de geoprocessamento e tecnologia da informação para todo o Brasil. Somos especialistas no desenvolvimento de diversas soluções que utilizam tecnologia e informação geoespacial para a Gestão da Informação Inteligente em empresas públicas e privadas.",
-                };
-
-                // const attributes = {
-                //     idTec: "TecGeo",
-                //     descTec: "TESTE"
-                // };
-
-
-                const graficoPonto = new Graphic({
-                    geometry: pontoTecgeo,
-                    symbol: pontoAparencia,
-                    // attributes: attributes,
-                    popupTemplate: popupTemplatePONTO
-                });
-
-                /*  CRIAR UMA LINHA NO MAPA */
-
-                const linhavetor = {
-                    type: "polyline",
-                    paths: [
-                        [-34.867564, -7.119963],
-                        [-34.866468, -7.120512],
-                        [-34.864734, -7.121342],
-                        [-34.862563, -7.122369],
-                        [-34.859390, -7.123908],
-                        [-34.858853, -7.124126],
-                        [-34.858456, -7.124365],
-                        [-34.857452, -7.125302],
-                        [-34.857066, -7.125888],
-                        [-34.856797, -7.126473],
-                        [-34.856620, -7.127123],
-                        [-34.856566, -7.127911],
-                        [-34.856587, -7.128177],
-                        [-34.856630, -7.128608],
-                        [-34.856678, -7.128959],
-                        [-34.856732, -7.129177],
-                        [-34.856866, -7.129465]
-                    ]
-                };
-
-                const linhaaparencia = {
-                    type: "simple-line",
-                    color: [220, 20, 60], // 	crimson
-                    width: 6
-                };
-
-                const avjuarezTavora = {
-                    title: "Avenida Juarez Távora",
-                    content: "Avenida onde o Maximum Empresarial está localizado"
-                }
-
-                const graficoLinha = new Graphic({
-                    geometry: linhavetor,
-                    symbol: linhaaparencia,
-                    popupTemplate: avjuarezTavora
-                });
-
-
-
-                /* CRIANDO UM POLÍGONO NO MAPA  */
-
-                const polygon = {
-                    type: "polygon",
-                    rings: [
-                        [-34.865778, -7.120921],
-                        [-34.862627, -7.122428],
-                        [-34.864361, -7.125973],
-                        [-34.871669, -7.122490],
-                        [-34.870445, -7.120041],
-                        [-34.867740, -7.120041]
-                    ]
-                };
-
-                const simpleFillSymbol = {
-                    type: "simple-fill",
-                    color: [127, 255, 212, 0.6],  // Aquamarine, opacidade 60%
-                    outline: {
-                        color: [255, 255, 255],
-                        width: 1.5
-                    }
-                };
-
-                const polygonGraphic = new Graphic({
-                    geometry: polygon,
-                    symbol: simpleFillSymbol,
-
-                });
-
-                /* UI */
-
-                graphicsLayer.add(polygonGraphic);
-                graphicsLayer.add(graficoLinha);
-                graphicsLayer.add(graficoPonto);
-
-                view.ui.add(bgExpand, "top-right");
-                view.ui.add(basemapToggle, {
-                    position: "bottom-right"
-                });
-});
-
-    </script>
 
 </head>
 
 <body>
     <div id="viewDiv"></div>
-
+    <div id="instruction" class="esri-widget"></div>
+  
 
 </body>
 
 </html>
-
