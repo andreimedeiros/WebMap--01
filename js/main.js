@@ -7,9 +7,8 @@ require([
     "esri/widgets/BasemapToggle",
     "esri/Graphic",
     "esri/layers/GraphicsLayer",
-    "esri/layers/FeatureLayer"], function (locator, Map, MapView, BasemapGallery, Expand, BasemapToggle, Graphic, GraphicsLayer, FeatureLayer) {
-
-
+    "esri/widgets/Locate",
+    "esri/widgets/Search"], function (locator, Map, MapView, BasemapGallery, Expand, BasemapToggle, Graphic, GraphicsLayer, Locate, Search) {
 
 
         const locatorUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
@@ -56,9 +55,7 @@ require([
                 title: "Coordenadas geográficas: [" + varlongitude + ", " + varlatitude + "]",
                 location: event.mapPoint
             });
-        
-    
-        
+
         // Localizar o endereço onde foi clicado.
         const params = {
             location: event.mapPoint
@@ -75,8 +72,27 @@ require([
                 // caso nenhum endereço for encontrado onde o usuário clicar.
                 view.popup.content = "Nenhum endereço foi encontrado para esta localização"
             });
+
         });
-           
+
+        /*************** SERVIÇO DE GEOLOCALIZAÇÃO  **************/
+
+        const local = new Locate({
+            view: view,
+            useHeadingEnabled: false,
+            goToOverride: function (view, options) {
+                options.target.scale = 1500;
+                return view.goTo(options.target);
+            }
+        });
+        view.ui.add(local, "top-left");
+
+
+        /************  BUSCAR ENDEREÇO ***********/
+
+        const buscarEndereco = new Search({  //Adicionar widget de buscar endereço
+            view: view
+        });
 
 
 
@@ -97,17 +113,13 @@ require([
             }
         };
 
-        const popupTemplatePONTO = {
-            title: "TecGeo | Tecnologia em Geoprocessamento",
-            content: "Há mais de 15 anos no mercado, a Tecgeo é uma empresa que oferece serviços de geoprocessamento e tecnologia da informação para todo o Brasil. Somos especialistas no desenvolvimento de diversas soluções que utilizam tecnologia e informação geoespacial para a Gestão da Informação Inteligente em empresas públicas e privadas.",
-
-        };
+      
 
         const graficoPonto = new Graphic({
             geometry: pontoTecgeo,
             symbol: pontoAparencia,
             // attributes: attributes,
-            popupTemplate: popupTemplatePONTO
+            
         });
 
 
@@ -142,23 +154,10 @@ require([
             width: 6
         };
 
-        const medirDistSymbol = {
-            title: "Medir Distância",
-            id: "medirdist",
-            image:
-                "https://developers.arcgis.com/javascript/latest/sample-code/popup-actions/live/Measure_Distance16.png"
-        };
-
-        const linhaPopup = {
-            title: "Avenida Juarez Távora",
-            content: "Avenida onde o Maximum Empresarial está localizado",
-            actions: [medirDistSymbol]
-        };
 
         const graficoLinha = new Graphic({
             geometry: linhavetor,
             symbol: linhaaparencia,
-            popupTemplate: linhaPopup
         });
 
 
@@ -197,10 +196,11 @@ require([
         graphicsLayer.add(polygonGraphic);
         graphicsLayer.add(graficoLinha);
         graphicsLayer.add(graficoPonto);
+        view.ui.add(buscarEndereco, "top-right");
         view.ui.add(bgExpand, "top-right");
         view.ui.add(basemapToggle, {
             position: "bottom-right"
         });
-    
 
-});
+
+    });
