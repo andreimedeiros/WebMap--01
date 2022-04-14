@@ -340,35 +340,59 @@ require([
 
 
     const casosLayer0 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/0"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 0
     });
 
     const casosLayer1 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/1"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 1
     });
 
     const casosLayer2 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/2"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 2
     });
 
     const casosLayer3 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/3"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 3
     });
 
     const casosLayer4 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/4"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 4
     });
 
     const casosLayer5 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/5"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 5
     });
 
     const casosLayer6 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/6"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 6
     });
 
     const casosLayer7 = new FeatureLayer({
-        url:"https://services6.arcgis.com/todjZmTeDSWA1qQw/arcgis/rest/services/Casos_JP_WFL1/FeatureServer/7"
+        portalItem: {
+            id: "c5f19c9571e2451bbc73c5bc5f2d7a5f"
+        },
+        layerId: 7
     });
 
     const layersGroup = new GroupLayer({
@@ -383,21 +407,14 @@ require([
             casosLayer6,
             casosLayer7,
         ],
-    //    orderBy: 0
-
     })
 
     const mapServico = new MapImageLayer({
         url: "https://arcgis.tecgeobr.com.br/server/rest/services/CARTOGRAFIA_TESTE/MapServer",
-        // orderBy: 1
-        
     });
 
     
-
-
-
-
+  
 
 
     /******** UI ********/
